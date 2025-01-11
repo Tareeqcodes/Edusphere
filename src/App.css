@@ -1,0 +1,41 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.orange {
+    color: #e27602;
+
+}
+.black {
+    background-color: black;
+    color: #fff;
+}
+.gray{
+    color: gray;
+
+}
+
+.word-spacing {
+    word-spacing: -1px;
+}
+
+.spacing {
+    word-spacing: -1.3px;
+}
+
+.results-container {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
