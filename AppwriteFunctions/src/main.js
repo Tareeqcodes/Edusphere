@@ -1,6 +1,6 @@
 import { Client, Databases, Query } from 'node-appwrite';
 import algoliasearch from 'algoliasearch';
-import { getStaticFile, interpolate, throwIfMissing } from './utils.js';
+import { throwIfMissing } from './utils.js';
 
 export default async ({ req, res, log }) => {
   throwIfMissing(process.env, [
@@ -11,16 +11,6 @@ export default async ({ req, res, log }) => {
     'ALGOLIA_ADMIN_API_KEY',
     'ALGOLIA_SEARCH_API_KEY',
   ]);
-
-  if (req.method === 'GET') {
-    const html = interpolate(getStaticFile('index.html'), {
-      ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
-      ALGOLIA_INDEX_ID: process.env.ALGOLIA_INDEX_ID,
-      ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
-    });
-
-    return res.text(html, 200, { 'Content-Type': 'text/html; charset=utf-8' });
-  }
 
   const client = new Client()
     .setEndpoint(process.env.APPWRITE_FUNCTION_API_ENDPOINT)
