@@ -5,11 +5,10 @@ import { throwIfMissing } from './utils.js';
 export default async ({ req, res, log }) => {
   throwIfMissing(process.env, [
     'APPWRITE_DATABASE_ID',
-    'APPWRITE_COLLECTION_ID',
     'ALGOLIA_APP_ID',
-    'ALGOLIA_INDEX_ID',
     'ALGOLIA_ADMIN_API_KEY',
     'ALGOLIA_SEARCH_API_KEY',
+    'COLLECTIONS_TO_INDEX',
   ]);
 
   const client = new Client()
@@ -23,7 +22,14 @@ export default async ({ req, res, log }) => {
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-  const index = algolia.initIndex(process.env.ALGOLIA_INDEX_ID);
+
+  const collectionsToIndex = JSON.parse(process.env.COLLECTIONS_TO_INDEX);
+
+  for (const { collectionId, indexName } of collectionsToIndex) {
+    log(`Starting sync for collection: ${collectionId} -> Algolia index: ${indexName}`);
+    const index = algolia.initIndex(indexName);
+
+    
 
   let cursor = null;
   do {
@@ -35,19 +41,20 @@ export default async ({ req, res, log }) => {
 
     const response = await databases.listDocuments(
       process.env.APPWRITE_DATABASE_ID,
-      process.env.APPWRITE_COLLECTION_ID,
+      collectionId,
       queries
     );
 
     if (response.documents.length > 0) {
       cursor = response.documents[response.documents.length - 1].$id;
     } else {
-      log('No more documents found.');
+      log(`No more documents found: ${collectionId}`);
       cursor = null;
       break;
     }
 
-    log(`Syncing chunk of ${response.documents.length} documents...`);
+    log(`Syncing chunk of ${response.documents.length} documents from collection: ${collectionId}`);
+    
 
     const records = response.documents.map(({ $id, ...document }) => ({
       ...document,
@@ -57,7 +64,8 @@ export default async ({ req, res, log }) => {
     await index.saveObjects(records);
   } while (cursor !== null);
 
-  log('Sync finished.');
-
+  log(`Sync finished: ${collectionId}`);
+  }
+  
   return res.text('Sync finished.', 200);
 };
