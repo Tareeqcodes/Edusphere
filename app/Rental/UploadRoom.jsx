@@ -105,8 +105,8 @@ const UploadRoom = () => {
   
   return (
     <section className='text-center h-full'>
-    <h2 className='text-xl border border-b-4  text-black  shadow-sm my-3 py-5 font-semibold'>Add Your Property</h2>
-    <div className='shadow-xl text-justify w-56 px-10'>
+    <h2 className='text-xl bg-slate-200 border border-b-4 text-black shadow-sm py-5 mb-5 font-semibold'>Add Your Property</h2>
+    <div  className=' text-justify mt-16 w-full'>
       <form onSubmit={handleSubmit}>
       <div className='mb-4'>
             <label
@@ -225,7 +225,7 @@ const UploadRoom = () => {
                 <option value='₦125K - 150K'>₦125K - ₦150K</option>
                 <option value='₦150K - 175K'>₦150K - ₦175K</option>
                 <option value='₦175K - 200K'>₦175K - ₦200K</option>
-                <option value='Over ₦1,00000M'>Over ₦1M</option>
+                <option value='Over ₦1M'>Over ₦1M</option>
             </select>
             
           </div>
@@ -271,7 +271,7 @@ const UploadRoom = () => {
           <div className='flex flex-col gap-5'>
             <button
               type='submit'
-              className='bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-700'
+              className='bg-blue-500 text-white px-4 py-3 mt-5 rounded hover:bg-blue-700'
               disabled={loading}
             >
               { loading ? 'submitting...' : 'Add Room' }

@@ -4,7 +4,7 @@ import  ViewRoom from '../../app/Rental/ViewRoom'
 const RoomPage = () => {
   return (
     <section>
-      <div className='lg:my-32 lg:pt-32'>
+      <div className='pb-10 px-3 lg:py-60'>
     <ViewRoom />
       </div>
     </section>

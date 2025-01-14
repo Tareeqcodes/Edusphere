@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const BottomNav = () => {
   return (
-    <div className='fixed bottom-0 left-0 z-50 font-roboto  w-full bg-blue-900  flex flex-row  py-3 px-5 gap-6 text-center items-center justify-evenly text-white md:hidden'>
+    <div className='fixed bottom-0 left-0 z-50 font-roboto  w-full bg-slate-100  flex flex-row  py-3 px-5 gap-6 text-center items-center justify-evenly text-black md:hidden'>
       <div className="flex flex-col">
       <Link to="/">
       <AiOutlineHome className="text-xl ml-1"/>

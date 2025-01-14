@@ -17,6 +17,9 @@
     color: #e27602;
 
 }
+.user-email{
+    font-size: xx-small;
+}
 .black {
     background-color: black;
     color: #fff;
@@ -47,14 +50,20 @@
 .ais-SearchBox-input{
     border: none;
     padding: 5px 10px;
-    width: 50rem;
+    width: 100%;
     border-radius: 5px;
     font-size: 18px;
     margin-left: 10px;
     &:focus {
         outline: none;
     }
-
+    @media (min-width: 40rem) {
+        width: 50rem; 
+    }
+    @media (min-width: 768px) and (max-width: 1024px) {
+        width: 40rem; 
+    }
+    
 }
 .ais-SearchBox-submit, .ais-SearchBox-reset{
     background-color: #fff;
@@ -79,6 +88,10 @@
 ais-SearchBox-resetIcon{
     display: none
 }
+.ais-Hits{
+    margin-top: 3rem;
+}
+
 
 
 

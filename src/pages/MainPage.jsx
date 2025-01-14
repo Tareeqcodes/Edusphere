@@ -6,7 +6,7 @@ import Search from '../components/Search'
 
 const MainPage = () => {
   return (
-    <section className="flex bg-blue-900 pt-32 pb-32  px-4 lg:px-10 flex-col justify-center items-center text-center">
+    <section className="flex bg-slate-50 pt-32 pb-32  px-4 lg:px-16 flex-col justify-center items-center text-center">
         <Search />
         <Header />
         <About />

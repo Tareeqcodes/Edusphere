@@ -13,18 +13,18 @@ const Navbar = () => {
   return (
     <>
     <nav
-      className="hidden md:block fixed top-0 left-0 w-full  bg-blue-900  text-white font-poppins text-center px-4 lg:px-10 z-50">
+      className="hidden md:block fixed top-0 left-0 w-full  bg-slate-100 shadow-2xl  font-poppins text-center px-4 lg:px-16 z-50">
       <div className=" mx-auto flex flex-1 justify-between items-center text-center">
          <Link to='/'>
          <img src={logo} alt="logo" className=' w-12'/>
          </Link>
          <NavItems />
         {user ? (
-           <Link to="/profile" className="bg-blue-500 text-white py-1 px-2 rounded">
+           <Link to="/profile" className="bg-white text-black py-1 px-2 rounded">
             <FaUser />
           </Link>
           ): (
-            <Link className=" text-white flex hover:bg-white hover:p-2 hover:rounded-md hover:text-black items-center justify-center py-1 px-2" to="/Auth">
+            <Link className=" text-black flex hover:bg-black hover:p-2 hover:rounded-md hover:text-white items-center justify-center py-1 px-2" to="/Auth">
              <p className='mr-1 font-poppins text-lg '>Login</p>
              <FaArrowRight />
              </Link>
@@ -55,11 +55,11 @@ export default Navbar
 //         <h1 className="text-2xl font-bold ml-10 ">Edusphere</h1>
 //         <NavItems />
 //           {user ? (
-//             <Link to="/profilepage" className="bg-blue-500 text-white py-1 px-2 rounded">
+//             <Link to="/profilepage" className="bg-blue-500 text-black py-1 px-2 rounded">
 //             Profile
 //           </Link>
 //           ): (
-//             <Link className="bg-green-500 text-white py-1 px-2 rounded" to="/Auth">
+//             <Link className="bg-green-500 text-black py-1 px-2 rounded" to="/Auth">
 //             Login
 //           </Link>
 //           )}

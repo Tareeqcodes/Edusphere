@@ -7,8 +7,8 @@ import ViewRoom from '../../app/Rental/ViewRental'
 
 const ViewContent = ( {onSelectSection }) => {
     return (
-        <section className='flex  flex-col items-center text-center justify-center'>
-        <div className='flex gap-5 justify-between pt-5' >
+        <section className='items-center text-center justify-center'>
+        <div className='flex gap-32 pt-5 pb-3 justify-center' >
         <button
                   className="flex flex-col items-center gap-1 cursor-pointer hover:bg-blue-700 px-2 py-3 rounded"
                   onClick={() => onSelectSection('upload')}
@@ -33,7 +33,7 @@ const Content = ({ selectedSection }) => {
      { selectedSection === 'rental' && ( <ViewRoom /> )}
 
       {selectedSection === 'upload' && (
-        <div className="overflow-y-auto md:px-52">
+        <div className="min-w-full px-12">
           <UploadRoom />
         </div>
       )}

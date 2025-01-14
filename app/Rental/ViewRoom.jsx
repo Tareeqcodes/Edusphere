@@ -60,22 +60,23 @@ const ViewRoom = () => {
   }
 
   return (
-    <div className="flex flex-col font-poppins pt-16 h-screen overflow-scroll items-center justify-center text-center">
-      <Link to="/rental" className="flex hover:text-white p-2 shadow-md rounded-md items-center mb-4">
+    <div className="flex flex-col font-poppins  px-4 h-screen items-center justify-center text-center">
+      <Link to="/rental" className="flex bg-white hover:bg-black hover:text-white p-2 shadow-md rounded-md items-center mb-4">
         <FaChevronLeft className="mr-1 inline" />
         <span className="ml-1">Back to Rentals</span>
       </Link>
       
-      <h4 className='text-2xl py-5 font-roboto font-semibold'>Property Details</h4>
+      <h4 className='text-2xl py-5 mb-5 font-roboto font-semibold'>Property Details</h4>
       
-      <div className="flex px-5 flex-col justify-start text-center items-center">
+      <div className="flex flex-col  justify-center text-justify items-center">
+        <picture>
         <img
           src={imageUrl}
           alt={room.name}
           className=" w-[20rem] rounded-lg object-cover"
         />
-        
-        <div className=" text-start w-full px-10 py-5 md:py-8">
+        </picture>
+        <div className=" text-start w-full py-5 md:py-8">
         <Heading title={room.name} />
         <p className='text-base font-medium mb-2'>{room.description}.</p>
         <h4 className="text-xl font-semibold orange">{room.price}/year</h4>
