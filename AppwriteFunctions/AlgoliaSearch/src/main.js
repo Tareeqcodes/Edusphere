@@ -1,26 +1,18 @@
 import { Client, Databases, Query } from 'node-appwrite';
 import algoliasearch from 'algoliasearch';
-import { getStaticFile, interpolate, throwIfMissing } from './utils.js';
+import { throwIfMissing } from './utils.js';
 
 export default async ({ req, res, log }) => {
   throwIfMissing(process.env, [
     'APPWRITE_DATABASE_ID',
-    'APPWRITE_COLLECTION_ID',
     'ALGOLIA_APP_ID',
-    'ALGOLIA_INDEX_ID',
     'ALGOLIA_ADMIN_API_KEY',
     'ALGOLIA_SEARCH_API_KEY',
+    'VITE_PDF_COLLECTION_ID',
+    'VITE_ROOM_COLLECTION_ID',
+    'ALGOLIA_INDEX_ID_1',
+    'ALGOLIA_INDEX_ID_2',
   ]);
-
-  if (req.method === 'GET') {
-    const html = interpolate(getStaticFile('index.html'), {
-      ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
-      ALGOLIA_INDEX_ID: process.env.ALGOLIA_INDEX_ID,
-      ALGOLIA_SEARCH_API_KEY: process.env.ALGOLIA_SEARCH_API_KEY,
-    });
-
-    return res.text(html, 200, { 'Content-Type': 'text/html; charset=utf-8' });
-  }
 
   const client = new Client()
     .setEndpoint(process.env.APPWRITE_FUNCTION_API_ENDPOINT)
@@ -33,7 +25,22 @@ export default async ({ req, res, log }) => {
     process.env.ALGOLIA_APP_ID,
     process.env.ALGOLIA_ADMIN_API_KEY
   );
-  const index = algolia.initIndex(process.env.ALGOLIA_INDEX_ID);
+
+  const collection = [
+    {
+      appwriteCollectionId: process.env.VITE_PDF_COLLECTION_ID,
+      algoliaIndexId: process.env.ALGOLIA_INDEX_ID_1,
+    },
+    {
+      appwriteCollectionId: process.env.VITE_ROOMS_COLLECTION_ID,
+      algoliaIndexId: process.env.ALGOLIA_INDEX_ID_2,
+    }
+  ]
+
+  for (const { appwriteCollectionId, algoliaIndexId } of collection) {
+    
+    log(`Starting sync for collection: ${appwriteCollectionId} -> Algolia index: ${indexName}`);
+    const index = algolia.initIndex(algoliaIndexId);
 
   let cursor = null;
   do {
@@ -45,19 +52,20 @@ export default async ({ req, res, log }) => {
 
     const response = await databases.listDocuments(
       process.env.APPWRITE_DATABASE_ID,
-      process.env.APPWRITE_COLLECTION_ID,
+      appwriteCollectionId,
       queries
     );
 
     if (response.documents.length > 0) {
       cursor = response.documents[response.documents.length - 1].$id;
     } else {
-      log('No more documents found.');
+      log(`No more documents found: ${appwriteCollectionId}`);
       cursor = null;
       break;
     }
 
-    log(`Syncing chunk of ${response.documents.length} documents...`);
+    log(`Syncing chunk of ${response.documents.length} documents from collection: ${appwriteCollectionId}`);
+    
 
     const records = response.documents.map(({ $id, ...document }) => ({
       ...document,
@@ -67,7 +75,8 @@ export default async ({ req, res, log }) => {
     await index.saveObjects(records);
   } while (cursor !== null);
 
-  log('Sync finished.');
-
+  log(`Sync finished: ${appwriteCollectionId}`);
+  }
+  
   return res.text('Sync finished.', 200);
 };
