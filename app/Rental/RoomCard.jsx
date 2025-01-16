@@ -1,15 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import { useState } from 'react';
 
 
 const RoomCard = ({room}) => {
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  let description = room.description;
+  if (!showFullDescription) {
+    description = description.substring(0, 90) + '...';
+  }
+
   const bucketId = import.meta.env.VITE_STORAGE_ID
     const projectId = import.meta.env.VITE_APPWRITE_PROJECT_ID
 
     const imageUrl = `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${room.image}/view?project=${projectId}`;
-
-    
 
     const imageSrc = room.image ? imageUrl : '/no-image.jpg';
 
@@ -27,9 +31,13 @@ const RoomCard = ({room}) => {
     <div className='flex flex-col py-3 items-start w-full'>
 
           <h2 className='text-xl text-blue-700 font-bold'>{room.name}</h2>
-           <p className="text-sm max-w-full text-orange-400 font-medium">
-            {room.description}
-          </p>
+          <div className='mb-1'>{description}</div>
+          <button
+          onClick={() => setShowFullDescription((prevState) => !prevState)}
+          className='text-indigo-500 mb-5 hover:text-indigo-600'
+        >
+          {showFullDescription ? 'Less' : 'More'}
+        </button>
     </div>
     <div className="flex items-center justify-between ">
      <h3 className="text-md font-semibold orange">{room.price}/Year</h3>

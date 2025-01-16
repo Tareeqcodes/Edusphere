@@ -13,7 +13,7 @@ const Navbar = () => {
   return (
     <>
     <nav
-      className="hidden md:block fixed top-0 left-0 w-full  bg-slate-100 shadow-2xl  font-poppins text-center px-4 lg:px-16 z-50">
+      className="hidden md:block fixed top-0 left-0 w-full  bg-slate-100 shadow-lg  font-poppins text-center px-4 lg:px-16 z-50">
       <div className=" mx-auto flex flex-1 justify-between items-center text-center">
          <Link to='/'>
          <img src={logo} alt="logo" className=' w-12'/>
