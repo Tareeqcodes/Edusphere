@@ -37,7 +37,8 @@ const Search = () => {
     <>
       <div className="main-content">    
             <InstantSearch
-              indexName={import.meta.env.COLLECTIONS_TO_INDEX}
+              indexName={import.meta.env.VITE_ALGOLIA_INDEX_ID_1}
+              
               searchClient={searchClient}
             >
               <div className="flex flex-col items-center justify-center text-center">

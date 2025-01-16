@@ -29,11 +29,11 @@ export default async ({ req, res, log }) => {
   const collection = [
     {
       appwriteCollectionId: process.env.PDFS_COLLECTION_ID,
-      algoliaIndexId: process.env.ALGOLIA_INDEX_ID_1,
+      algoliaIndexId: process.env.ALGOLIA_INDEX_ID_2,
     },
     {
       appwriteCollectionId: process.env.ROOMS_COLLECTION_ID,
-      algoliaIndexId: process.env.ALGOLIA_INDEX_ID_2,
+      algoliaIndexId: process.env.ALGOLIA_INDEX_ID_1,
     }
   ]
 
