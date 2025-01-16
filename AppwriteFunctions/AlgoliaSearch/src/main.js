@@ -39,7 +39,7 @@ export default async ({ req, res, log }) => {
 
   for (const { appwriteCollectionId, algoliaIndexId } of collection) {
     
-    log(`Starting sync for collection: ${appwriteCollectionId} -> Algolia index: ${indexName}`);
+    log(`Starting sync for collection: ${appwriteCollectionId} -> Algolia index: ${algoliaIndexId}`);
     const index = algolia.initIndex(algoliaIndexId);
 
   let cursor = null;
