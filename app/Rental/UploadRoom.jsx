@@ -83,7 +83,7 @@ const UploadRoom = () => {
       try {
         await databases.createDocument(
           import.meta.env.VITE_DATABASE_ID,
-          import.meta.env.VITE_COLLECTION_ID,
+          import.meta.env.VITE_ROOMS_COLLECTION_ID,
           ID.unique(),
           documentData
          );

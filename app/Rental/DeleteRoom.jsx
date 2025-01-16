@@ -20,14 +20,11 @@ const DeleteRoom =  ( {roomId }) => {
           const userId = user.$id;
           const response = await databases.listDocuments(
             import.meta.env.VITE_DATABASE_ID,
-            import.meta.env.VITE_COLLECTION_ID,
+            import.meta.env.VITE_ROOMS_COLLECTION_ID,
             [Query.equal('user_id', userId)]
           );
           setDocuments(response.documents);
           setLoadingItems(false);
-          
-
-         
         } catch (err) {
           console.error('Failed to fetch Items:', err);
            setError('Failed to fetch Items. Please try again later.');
@@ -57,7 +54,7 @@ const DeleteRoom =  ( {roomId }) => {
           if (confirmed) {
             await databases.deleteDocument(
               import.meta.env.VITE_DATABASE_ID,
-              import.meta.env.VITE_COLLECTION_ID,
+              import.meta.env.VITE_ROOMS_COLLECTION_ID,
               roomToDelete.$id,
             );
             setDocuments((prevDocument) => prevDocument.filter((room) => room.$id !==roomId)),

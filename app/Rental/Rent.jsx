@@ -15,7 +15,7 @@ import RoomCard from './RoomCard'
       try {
         const rooms = await databases.listDocuments(
           import.meta.env.VITE_DATABASE_ID, 
-          import.meta.env.VITE_COLLECTION_ID 
+          import.meta.env.VITE_ROOMS_COLLECTION_ID
         );
         setDocuments(rooms.documents);
         setLoading(false);

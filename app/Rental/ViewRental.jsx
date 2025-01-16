@@ -19,7 +19,7 @@ const ViewRoom =  () => {
           const userId = user.$id;
           const response = await databases.listDocuments(
             import.meta.env.VITE_DATABASE_ID,
-            import.meta.env.VITE_COLLECTION_ID,
+            import.meta.env.VITE_ROOMS_COLLECTION_ID,
             [Query.equal('user_id', userId)]
           );
           setDocuments(response.documents);
