@@ -8,8 +8,8 @@ export default async ({ req, res, log }) => {
     'ALGOLIA_APP_ID',
     'ALGOLIA_ADMIN_API_KEY',
     'ALGOLIA_SEARCH_API_KEY',
-    'VITE_PDF_COLLECTION_ID',
-    'VITE_ROOM_COLLECTION_ID',
+    'PDFS_COLLECTION_ID',
+    'ROOMS_COLLECTION_ID',
     'ALGOLIA_INDEX_ID_1',
     'ALGOLIA_INDEX_ID_2',
   ]);
@@ -28,11 +28,11 @@ export default async ({ req, res, log }) => {
 
   const collection = [
     {
-      appwriteCollectionId: process.env.VITE_PDF_COLLECTION_ID,
+      appwriteCollectionId: process.env.PDFS_COLLECTION_ID,
       algoliaIndexId: process.env.ALGOLIA_INDEX_ID_1,
     },
     {
-      appwriteCollectionId: process.env.VITE_ROOMS_COLLECTION_ID,
+      appwriteCollectionId: process.env.ROOMS_COLLECTION_ID,
       algoliaIndexId: process.env.ALGOLIA_INDEX_ID_2,
     }
   ]
