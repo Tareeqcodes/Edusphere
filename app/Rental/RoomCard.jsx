@@ -5,10 +5,10 @@ import { useState } from 'react';
 
 const RoomCard = ({room}) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
-  let description = room.description;
-  if (!showFullDescription) {
-    description = description.substring(0, 90) + '...';
-  }
+  const toggleDescription = () => {
+    setShowFullDescription(!showFullDescription);
+  };
+
 
   const bucketId = import.meta.env.VITE_STORAGE_ID
     const projectId = import.meta.env.VITE_APPWRITE_PROJECT_ID
@@ -21,7 +21,6 @@ const RoomCard = ({room}) => {
     <section className=' shadow-lg rounded-lg mb-10  text-center items-start  justify-center'>
       <div className="p-5 items-start">
         <picture>
-          <source media="(min-width: )" srcset="" />
           <img
           src={imageSrc}
           alt={room.name}
@@ -31,13 +30,16 @@ const RoomCard = ({room}) => {
     <div className='flex flex-col py-3 items-start w-full'>
 
           <h2 className='text-xl text-blue-700 font-bold'>{room.name}</h2>
-          <div className='mb-1'>{description}</div>
-          <button
+          
+          <p
           onClick={() => setShowFullDescription((prevState) => !prevState)}
           className='text-indigo-500 mb-5 hover:text-indigo-600'
         >
-          {showFullDescription ? 'Less' : 'More'}
-        </button>
+          {showFullDescription ? room.description : `${room.description.substring(0, 90)}...`}
+        </p> 
+        <button onClick={toggleDescription}>
+        {showFullDescription ? 'Less' : 'More'}
+      </button>
     </div>
     <div className="flex items-center justify-between ">
      <h3 className="text-md font-semibold orange">{room.price}/Year</h3>

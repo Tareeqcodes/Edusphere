@@ -10,7 +10,6 @@ import {
   useInstantSearch,
 } from "react-instantsearch";
 import { FaSlidersH } from "react-icons/fa";
-// import { MdClear } from "react-icons/md";
 import { storage } from "../config/appwrite";
 
 const searchClient = algoliasearch(
@@ -110,31 +109,29 @@ const Display = () => {
         />
         <div className="flex flex-col md:flex-row gap-6">
           {/* Filters Section */}
-          <FaSlidersH
-                onClick={() => setShowFilters(!showFilters)}
-                className="text-2xl cursor-pointer text-blue-500 md:hidden"
-              />
           <div
-            className={`w-full lg:w-1/4 bg-gray-900 text-black p-4 rounded-md ${
+            className={`w-full md:w-1/4 bg-gray-900 text-white p-4 rounded-md ${
               showFilters ? "block" : "hidden md:block"
             }`}
           >
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-lg font-semibold">Filters</h3>
-             
+              <FaSlidersH
+                onClick={() => setShowFilters(!showFilters)}
+                className="text-2xl cursor-pointer text-blue-500 md:hidden"
+              />
             </div>
+            <ClearRefinements translations={{ reset: "Clear Filters" }} />
             <FilterAccordion title="Faculty" attribute="faculty" />
             <FilterAccordion title="Department" attribute="department" />
             <FilterAccordion title="Level" attribute="level" />
             <FilterAccordion title="Semester" attribute="semester" />
-            <ClearRefinements translations={{ reset: "Clear Filters" }} />
-             
           </div>
 
           {/* Hits Section */}
           <div className="flex-1">
             <NoResults />
-            <div className=" w-full items-center gap-7">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <Hits hitComponent={Hit} />
             </div>
           </div>

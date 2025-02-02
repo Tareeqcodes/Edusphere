@@ -1,6 +1,8 @@
-// import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaArrowRight } from 'react-icons/fa';
+//  import React, { useState } from 'react';
+// import { Link } from 'react-router-dom';
+// import { FaArrowRight } from 'react-icons/fa';
+// import books from '../../assets/images/books.png'
+
 
 const Header = () => {
   // const phrases = ['Digital World', 'Connected Future', 'Global Classroom']; // Add dynamic phrases
@@ -13,10 +15,12 @@ const Header = () => {
 
   //   return () => clearInterval(interval); // Clean up on unmount
   // }, [phrases.length]);
+ 
 
   return (
-    <div className=" text-center pt-4 lg:pt-28 lg:pb-10 text-black w-full items-center justify-around">
-      <h1 className="text-2xl lg:text-6xl font-semibold spacing font-roboto text-justify md:text-center">Transforming University Life with Edusphere Digital World.</h1>
+    <div className="bg-orange-600 text-white w-full mb-10 items-center rounded-bl-[5rem] md:rounded-bl-[10rem] flex flex-col px-5 md:px-16 pt-40 pb-52">
+      <h1 className="text-2xl lg:text-4xl mt-10 font-semibold font-roboto  text-justify md:text-center">Transforming University Life with Edusphere Digital World.</h1>
+      
 {/*       
       <h1 className="font-ubuntu font-bold text-2xl md:text-4xl text-justify max-w-80 md:max-w-full leading-normal tracking-tighter">
       Transforming University Life with EduSphere{' '}

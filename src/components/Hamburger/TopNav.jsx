@@ -7,7 +7,7 @@ const TopNav = () => {
   const { user } = useAuth(); 
   
   return (
-    <nav className="fixed flex  md:hidden top-0 left-0 w-full bg-slate-100 shadow-xl justify-between items-center text-center z-50 px-3">
+    <nav className="fixed flex bg-orange-600 md:hidden top-0 left-0 w-full shadow-xl justify-between items-center text-center z-50 px-3">
       <Link to='/'>
          <img src={logo} alt="logo" className='h-12  w- ml-1 mt-1'/>
         

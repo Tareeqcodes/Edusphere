@@ -91,8 +91,28 @@ ais-SearchBox-resetIcon{
 .ais-Hits{
     margin-top: 3rem;
 }
-
-
+@media (min-width:360px){
+    .ais-Hits-list{
+        grid-template-columns: repeat( 1, 1fr );
+        column-gap: 2rem;
+        row-gap: 2rem;
+    }
+}
+@media (min-width:768px){
+    .ais-Hits-list{
+        grid-template-columns: repeat( 3, 1fr );
+        column-gap: 2rem;
+        row-gap: 2rem;
+    }
+}
+@media (min-width:1024px){
+    .ais-Hits-list{
+        display:grid;
+        grid-template-columns: repeat( 3, 1fr );
+        column-gap: 2rem;
+        row-gap: 2rem;
+    }
+}
 
 
   

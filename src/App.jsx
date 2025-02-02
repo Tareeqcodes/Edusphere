@@ -28,9 +28,9 @@ function App() {
      <Route path='*' element={<NotFoundPage />} />
      
        <Route index element={<MainPage />} />
-      <Route element={<PrivateRoute />} >
        <Route path='/pdfs' element= {<PdfPage />} />
        <Route path='/Rental' element={< Rental />} />
+      <Route element={<PrivateRoute />} >
        <Route path='/marketplace' element= {<Store />} />
        <Route path='/profile/*' element= {<Profile />} />
        <Route path='/roomPage/:id' element={<RoomPage />} />

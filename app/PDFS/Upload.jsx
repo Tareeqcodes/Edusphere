@@ -56,11 +56,11 @@ const Upload = () => {
         ID.unique(),
         formData.pdfFile
       );
-
+ 
       // 2. Save metadata in Appwrite Database
       await databases.createDocument(
         import.meta.env.VITE_DATABASE_ID,  // Replace with your database ID
-        import.meta.env.VITE_PDFS_ID, // Replace with your collection ID
+        import.meta.env.VITE_PDFS_COLLECTION_ID, // Replace with your collection ID
         ID.unique(),
         {
           uploadername: formData.uploaderName,
