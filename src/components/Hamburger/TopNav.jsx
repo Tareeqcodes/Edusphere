@@ -1,27 +1,30 @@
 import { Link } from 'react-router-dom';
 import { FaUser, FaArrowRight } from 'react-icons/fa';
-import logo from '../../assets/images/logo.svg'
+import logo from '../../assets/images/logo.svg';
 import { useAuth } from '../../../app/context/Authcontext';
 
 const TopNav = () => {
-  const { user } = useAuth(); 
-  
+  const { user } = useAuth();
+
   return (
-    <nav className="fixed flex bg-orange-600 md:hidden top-0 left-0 w-full shadow-xl justify-between items-center text-center z-50 px-3">
-      <Link to='/'>
-         <img src={logo} alt="logo" className='h-12  w- ml-1 mt-1'/>
-        
-         </Link>
-         {user ? (
-           <Link to="/profile" className=" text-black bg-white py-1 px-2 rounded">
-            <FaUser />
-          </Link>
-          ): (
-            <Link className=" text-black flex hover:bg-white hover:p-2 hover:rounded-md hover:text-black items-center justify-center py-1 px-2" to="/Auth">
-                         <p className='mr-1 font-poppins text-lg '>Login</p>
-                         <FaArrowRight />
-                         </Link>
-          )}
+    <nav className="fixed top-0 left-0 w-full bg-orange-600 md:hidden shadow-xl flex items-center justify-between px-4 py-3 z-50">
+      
+      {/* Logo */}
+      <Link to="/" className="flex items-center">
+        <img src={logo} alt="Edusphere Logo" className="h-10" />
+      </Link>
+
+      {/* Auth Buttons */}
+      {user ? (
+        <Link to="/profile" className="bg-white text-black p-2 rounded-full hover:bg-gray-100 transition-all">
+          <FaUser size={20} aria-label="Profile" />
+        </Link>
+      ) : (
+        <Link to="/Auth" className="flex items-center bg-white text-orange-600 py-2 px-2 rounded-full hover:bg-gray-100 transition-all">
+          <p className="mr-2 font-semibold">Login</p>
+          <FaArrowRight size={18} />
+        </Link>
+      )}
     </nav>
   );
 };

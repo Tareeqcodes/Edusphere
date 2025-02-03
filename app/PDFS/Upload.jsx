@@ -15,10 +15,25 @@ const Upload = () => {
   const [ departments, setDeparments] = useState([])
 
   const facultyDepartments = {
-    Science: ['Biology', 'Chemistry', 'Physics', 'Mathematics'],
-    Engineering: ['Mechanical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Computer Engineering'],
+    Agriculture: ['Biology', 'Chemistry', 'Physics', 'Mathematics'],
+    AlliedHealth: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
     Arts: ['History', 'Philosophy', 'Linguistics', 'Fine Arts'],
-    Medicine: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    BasicMedical: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Clinical: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Communication: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Computing: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Dententry: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    EarthEnvironmental: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Education: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Engineering: ['Mechanical Engineering', 'Civil Engineering', 'Electrical Engineering', 'Computer Engineering'],
+    Law: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    LifeSceince: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    ManagementSceince: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    Parmaceuticals: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    PhysicalSceince: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    SocialSceince: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+    VeterinaryMedicine: ['Nursing', 'Pharmacy', 'Public Health', 'Surgery'],
+
   };
 
   const handleChange = (e) => {
@@ -96,7 +111,7 @@ const Upload = () => {
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-blue-700 font-medium mb-1">Uploader Name</label>
+          <label className="block text-blue-700 font-medium py-3">Uploader Name</label>
           <input
             type="text"
             name="uploaderName"
@@ -108,7 +123,7 @@ const Upload = () => {
           />
         </div>
         <div>
-          <label className="block text-blue-700 font-medium mb-1">Faculty</label>
+          <label className="block text-blue-700 font-medium py-3">Faculty</label>
           <select
             name="faculty"
             value={formData.faculty}
@@ -125,7 +140,7 @@ const Upload = () => {
           </select>
         </div>
         <div>
-          <label className="block text-blue-700 font-medium mb-1">Department</label>
+          <label className="block text-blue-700 font-medium py-3">Department</label>
           <select
             name="department"
             value={formData.department}
@@ -144,7 +159,7 @@ const Upload = () => {
         </div>
 
         <div>
-          <label className="block text-blue-700 font-medium mb-1">Level</label>
+          <label className="block text-blue-700 font-medium py-3">Level</label>
           <select
             name="level"
             value={formData.level}
@@ -163,7 +178,7 @@ const Upload = () => {
         </div>
 
         <div>
-          <label className="block text-blue-700 font-medium mb-1">Semester</label>
+          <label className="block text-blue-700 font-medium py-3">Semester</label>
           <select
             name="semester"
             value={formData.semester}
@@ -179,7 +194,7 @@ const Upload = () => {
         </div>
 
         <div>
-          <label className="block text-blue-700 font-medium mb-1">Upload PDF</label>
+          <label className="block text-blue-700 font-medium py-3">Upload PDF</label>
           <input
             type="file"
             name="pdfFile"
@@ -192,7 +207,7 @@ const Upload = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition duration-200"
+          className="w-full  hover:bg-blue-700 black font-semibold py-2 mt-4 rounded"
           disabled={!formData.faculty}
         >
           Upload

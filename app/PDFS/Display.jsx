@@ -9,8 +9,7 @@ import {
   ClearRefinements,
   useInstantSearch,
 } from "react-instantsearch";
-import { FaSlidersH } from "react-icons/fa";
-// import { MdClear } from "react-icons/md";
+import { FaSlidersH, FaChevronDown, FaChevronUp } from "react-icons/fa";
 import { storage } from "../config/appwrite";
 
 const searchClient = algoliasearch(
@@ -82,22 +81,38 @@ const Display = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
-      <div className="mb-4">
+      <div className="mb-4 border-b border-gray-200 pb-4">
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full text-left font-semibold flex justify-between items-center"
+          className="w-full text-left font-semibold flex justify-between items-center focus:outline-none"
         >
-          <span>{title}</span>
-          <span>{isOpen ? "−" : "+"}</span>
+          <span className="text-gray-700">{title}</span>
+          <span className="text-gray-500">
+            {isOpen ? <FaChevronUp /> : <FaChevronDown />}
+          </span>
         </button>
-        {isOpen && <RefinementList attribute={attribute} />}
+        {isOpen && (
+          <div className="mt-2">
+            <RefinementList
+              attribute={attribute}
+              className="space-y-2"
+              classNames={{
+                item: "flex items-center",
+                label: "ml-2 text-gray-700",
+                checkbox:
+                  "form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out",
+                count: "ml-auto text-gray-500 text-sm",
+              }}
+            />
+          </div>
+        )}
       </div>
     );
   };
 
   return (
     <section className="container mx-auto px-5 md:px-16">
-      <h1 className="text-2xl font-bold pt-5 text-center mb-6">Study Materials</h1>
+      <h1 className="text-2xl font-bold text-center mt-10 mb-6">Study Materials</h1>
 
       {/* Search Box */}
       <InstantSearch searchClient={searchClient} indexName={import.meta.env.VITE_ALGOLIA_INDEX_ID_2}>
@@ -110,31 +125,34 @@ const Display = () => {
         />
         <div className="flex flex-col md:flex-row gap-6">
           {/* Filters Section */}
-          <FaSlidersH
-                onClick={() => setShowFilters(!showFilters)}
-                className="text-2xl cursor-pointer text-blue-500 md:hidden"
-              />
-          <div
-            className={`w-full lg:w-1/4 bg-gray-900 text-black p-4 rounded-md ${
-              showFilters ? "block" : "hidden md:block"
-            }`}
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg font-semibold">Filters</h3>
-             
+          <div className="relative">
+            <FaSlidersH
+              onClick={() => setShowFilters(!showFilters)}
+              className="text-2xl cursor-pointer text-blue-500 md:hidden mb-4"
+            />
+            <div
+              className={`w-full lg:w-64 bg-white shadow-lg rounded-lg p-6 ${
+                showFilters ? "block" : "hidden md:block"
+              }`}
+            >
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-lg font-semibold text-gray-800">Filters</h3>
+                <ClearRefinements
+                  translations={{ reset: "Clear All" }}
+                  className="text-sm text-blue-600 hover:text-blue-700"
+                />
+              </div>
+              <FilterAccordion title="Faculty" attribute="faculty" />
+              <FilterAccordion title="Department" attribute="department" />
+              <FilterAccordion title="Level" attribute="level" />
+              <FilterAccordion title="Semester" attribute="semester" />
             </div>
-            <FilterAccordion title="Faculty" attribute="faculty" />
-            <FilterAccordion title="Department" attribute="department" />
-            <FilterAccordion title="Level" attribute="level" />
-            <FilterAccordion title="Semester" attribute="semester" />
-            <ClearRefinements translations={{ reset: "Clear Filters" }} />
-             
           </div>
 
           {/* Hits Section */}
           <div className="flex-1">
             <NoResults />
-            <div className=" w-full items-center gap-7">
+            <div className="w-full">
               <Hits hitComponent={Hit} />
             </div>
           </div>

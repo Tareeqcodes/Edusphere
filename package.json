@@ -12,6 +12,7 @@
   "dependencies": {
     "algoliasearch": "^5.19.0",
     "appwrite": "^16.1.0",
+    "framer-motion": "^12.0.6",
     "instantsearch.css": "^8.5.1",
     "instantsearch.js": "^4.75.7",
     "js-cookie": "^3.0.5",
@@ -25,7 +26,7 @@
     "react-toastify": "^11.0.2"
   },
   "devDependencies": {
-    "@eslint/js": "^9.17.0", 
+    "@eslint/js": "^9.17.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "@vitejs/plugin-react": "^4.3.4",

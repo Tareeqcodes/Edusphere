@@ -7,98 +7,107 @@ import RentalDashboard from '../RentalDashboard';
 import Upload from '../../../app/PDFS/Upload';
 
 
-const Sidebar = ({  signOut,  user, onSelectSection }) => {
-
+const Sidebar = ({ signOut, user, onSelectSection, selectedSection }) => {
   return (
-    <section className=" bg-slate-200 w-52 h-screen text-black   items-start text-center  justify-center font-poppins px-10 pt-20 pb-16">
-      <div className='flex flex-col justify-between pl-7'>
-        <div className='flex flex-col'>
+    <aside className="hidden md:flex flex-col bg-slate-200 w-48 h-screen pt-20 pb-6 px-6 text-black font-poppins">
+      {/* User Email */}
       {user && (
-          <p className='flex flex-col text-justify'>
-            <strong>Email:</strong> 
-            <span className='user-email'>{user.email}</span>
-          </p>
-       
-      )} 
-      </div>
-      <div className='mt-5'>
+        <p className="text-[12px] font-medium text-gray-700 py-5 mb-4">
+          <strong>Email:</strong> {user.email}
+        </p>
+      )}
+
+      {/* Sidebar Buttons */}
+      <nav className="flex flex-col space-y-2">
+        {[
+          { name: "Home", icon: <FaHome />, section: "home" },
+          { name: "Rentals", icon: <FaListAlt />, section: "rentaldashboard" },
+          { name: "Upload", icon: <FaFileUpload />, section: "upload" },
+        ].map(({ name, icon, section }) => (
+          <button
+            key={section}
+            className={`flex items-center space-x-2 px-4 py-3 rounded-lg cursor-pointer transition-all ${
+              selectedSection === section
+                ? "bg-blue-700 text-white"
+                : "hover:bg-blue-100 text-gray-800"
+            }`}
+            onClick={() => onSelectSection(section)}
+          >
+            {icon}
+            <span className="text-base">{name}</span>
+          </button>
+        ))}
+      </nav>
+
+      {/* Sign Out Button */}
       <button
-        className="flex flex-col items-center py-5 cursor-pointer  hover:bg-blue-700 px-2 rounded"
-        onClick={() => onSelectSection('home')}
-      >
-        <div className='text-justify'>
-
-        <FaHome className="text-2xl" />
-        <span className="text-base">Home</span>
-        </div>
-      </button>
-        
-        <button
-          className="flex flex-col items-center py-5 cursor-pointer  hover:bg-blue-700 px-2 rounded"
-          onClick={() => onSelectSection('rentaldashboard')}
-        >
-          <div className='text-justify'>
-
-          <FaListAlt className="text-2xl" />
-          <span className="text-base">Rentals</span>
-          </div>
-        </button>
-        <button
-        className="flex flex-col items-center py-5 cursor-pointer  hover:bg-blue-700 px-2 rounded"
-        onClick={() => onSelectSection('upload')}
-      >
-        <div className='text-justify'>
-
-        <FaFileUpload className="text-2xl" />
-        <span className="text-base">Upload</span>
-        </div>
-      </button>
-      <button
-        className="flex items-center justify-center text-orange-700"
+        className="flex items-center space-x-2 text-orange-700 mt-auto py-3"
         onClick={signOut}
       >
-        <FaSignOutAlt className="mr-2" />
-        <span className='text-base'>Sign Out</span>
+        <FaSignOutAlt />
+        <span className="text-base">Sign Out</span>
       </button>
-      </div>
-      </div>
-    </section>
+    </aside>
   );
 };
-
-const DashboardContent = ({ selectedSection }) => {
+const MobileNav = ({ onSelectSection, selectedSection }) => {
   return (
-    <section className=" py-20 flex-1  font-poppins h-screen overflow-y-auto">
-     {selectedSection === 'home' && (
-        <div className="text-center mt-5">
-          <h1 className="text-3xl font-bold">Welcome to the Dashboard!</h1>
-          <p className="mt-4">Select a section from the sidebar to get started.</p>
-        </div>
-      )}
-     
-   { selectedSection === 'rentaldashboard' && ( <RentalDashboard /> )}
-   { selectedSection === 'upload' && (
-    <div className='px-12'>
-      <Upload />
-    </div>
-      )}
-    </section>
+    <nav className="fixed bottom-0 left-0 w-full bg-white shadow-lg flex justify-around py-3 text-gray-700 md:hidden">
+      {[
+        { name: "Home", icon: <FaHome />, section: "home" },
+        { name: "Rentals", icon: <FaListAlt />, section: "rentaldashboard" },
+        { name: "Upload", icon: <FaFileUpload />, section: "upload" },
+      ].map(({ name, icon, section }) => (
+        <button
+          key={section}
+          className={`flex flex-col items-center text-xs ${
+            selectedSection === section ? "text-orange-600 font-bold" : ""
+          }`}
+          onClick={() => onSelectSection(section)}
+        >
+          {icon}
+          {name}
+        </button>
+      ))}
+    </nav>
   );
 };
 
 const Dashboard = () => {
   const { user, loading, signOut } = useAuth();
-  const [selectedSection, setSelectedSection] = useState('home');
+  const [selectedSection, setSelectedSection] = useState("home");
 
   if (loading) return <Spinner />;
   if (!user) return <SignInForm />;
 
   return (
     <div className="flex h-screen">
-      <Sidebar user={user} signOut={signOut} onSelectSection={setSelectedSection} />
-      <DashboardContent user={user} selectedSection={selectedSection} />
+      {/* Sidebar (Hidden on Mobile) */}
+      <Sidebar
+        user={user}
+        signOut={signOut}
+        onSelectSection={setSelectedSection}
+        selectedSection={selectedSection}
+      />
+
+      {/* Main Content */}
+      <main className="flex-1 py-10 mt-16 px-6 overflow-y-auto">
+        {selectedSection === "home" && (
+          <div className="text-center">
+            <h1 className="text-3xl md:text-4xl font-bold">Welcome to the Dashboard!</h1>
+            <p className="mt-4 text-gray-600">Select a section from the sidebar to get started.</p>
+          </div>
+        )}
+
+        {selectedSection === "rentaldashboard" && <RentalDashboard />}
+        {selectedSection === "upload" && <Upload />}
+      </main>
+
+      {/* Mobile Bottom Navigation */}
+      <MobileNav onSelectSection={setSelectedSection} selectedSection={selectedSection} />
     </div>
   );
 };
+
 
 export default Dashboard;

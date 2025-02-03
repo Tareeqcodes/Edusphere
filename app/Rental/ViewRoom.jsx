@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FaChevronLeft, FaWhatsapp } from 'react-icons/fa';
+import { motion } from 'framer-motion'; // Importing framer-motion
 import Heading from '../../src/components/Heading';
 import GetSingleRoom from './GetSingleRoom';
 import Spinner from '../../src/components/Spinner';
@@ -34,12 +35,10 @@ const ViewRoom = () => {
     ? `https://cloud.appwrite.io/v1/storage/buckets/${bucketId}/files/${room.image}/view?project=${projectId}`
     : '/no-image.jpg';
 
-    const countryCode = '+234';
-    const formattedContact = room && room.contact ? (room.contact.startsWith('0')
+  const countryCode = '+234';
+  const formattedContact = room && room.contact ? (room.contact.startsWith('0')
     ? countryCode + room.contact.slice(1)
     : countryCode + room.contact) : '';
-
-
 
   const whatsappLink = room
     ? `https://wa.me/${formattedContact}?text=${encodeURIComponent(
@@ -60,44 +59,95 @@ const ViewRoom = () => {
   }
 
   return (
-    <div className="flex flex-col font-poppins  px-4 h-screen items-center justify-center text-center">
-      <Link to="/rental" className="flex bg-white hover:bg-black hover:text-white p-2 shadow-md rounded-md items-center mb-4">
-        <FaChevronLeft className="mr-1 inline" />
-        <span className="ml-1">Back to Rentals</span>
-      </Link>
-      
-      <h4 className='text-2xl py-5 mb-5 font-roboto font-semibold'>Property Details</h4>
-      
-      <div className="flex flex-col  justify-center text-justify items-center">
-        <picture>
-        <img
-          src={imageUrl}
-          alt={room.name}
-          className=" w-[20rem] rounded-lg object-cover"
-        />
-        </picture>
-        <div className=" text-start w-full py-5 md:py-8">
-        <Heading title={room.name} />
-        <p className='text-base font-medium mb-2'>{room.description}.</p>
-        <h4 className="text-xl font-semibold orange">{room.price}/year</h4>
-        
+    <div className="flex flex-col font-poppins px-4 h-screen items-center justify-center text-center space-y-8">
+      <motion.div
+        className="flex bg-white hover:bg-black hover:text-orange-600 p-2 shadow-md rounded-md items-center mb-4 cursor-pointer"
+        whileHover={{ scale: 1.1 }}
+        transition={{ type: "spring", stiffness: 300 }}
+      >
+        <Link to="/rental" className='flex items-center'>
+          <FaChevronLeft className="mr-1 inline" />
+          <span className="ml-1">Back to Rentals</span>
+        </Link>
+      </motion.div>
 
-        <h4 className="mb-2 gray font-medium">Amenities:
-          <span className="ml-2 text-black">{room.amenities}.</span> </h4>
-        
-        <h4 className='mb-2 gray '>Location: <span className='text-black'>{room.location}.
-          </span></h4>
-        
-        <a
-          href={whatsappLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center bg-green-500 text-white font-semibold text-lg px-4 py-2 rounded-md mt-4 hover:bg-green-700 transition"
+      <motion.h4
+        className="text-2xl py-5 mb-5 font-roboto font-semibold"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
+        Property Details
+      </motion.h4>
+
+      <motion.div
+        className="flex flex-col justify-center text-justify items-center"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.picture
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.2 }}
         >
-          <FaWhatsapp className="mr-2" /> Contact on me WhatsApp
-        </a>
+          <img
+            src={imageUrl}
+            alt={room.name}
+            className="w-[20rem] rounded-lg object-cover"
+          />
+        </motion.picture>
+
+        <div className="text-start w-full py-5 md:py-8">
+          <Heading title={room.name} />
+          <motion.p
+            className="text-base font-medium mb-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            {room.description}.
+          </motion.p>
+
+          <motion.h4
+            className="text-xl font-semibold text-orange-600"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            {room.price}/year
+          </motion.h4>
+
+          <motion.h4
+            className="mb-2 text-gray-500 font-medium"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
+            Amenities: <span className="ml-2 text-black">{room.amenities}</span>
+          </motion.h4>
+
+          <motion.h4
+            className="mb-2 text-gray-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
+            Location: <span className="text-black">{room.location}</span>
+          </motion.h4>
+
+          <motion.a
+            href={whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center black font-semibold text-lg px-4 py-2 rounded-lg mt-4 transition-all"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
+          >
+            <FaWhatsapp className="mr-2" /> Contact on WhatsApp
+          </motion.a>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
